@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила парковки | Времена Года</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #2B2E35;
+            color: #F3EDE3;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(243, 237, 227, 0.15);
+            padding-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        /* Header (как на главной) */
+        header {
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(243, 237, 227, 0.1);
+            position: sticky;
+            top: 0;
+            background-color: rgba(43, 46, 53, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-left {
+            flex: 1 1 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .header-info-item i {
+            color: #ACAD99;
+            font-size: 1.1rem;
+        }
+
+        .header-center {
+            flex: 0 0 auto;
+        }
+
+        .logo-symbol {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .segment {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #ACAD99;
+            opacity: 0.9;
+        }
+
+        .s1 { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .s2 { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .s3 { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .s4 { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        .header-right {
+            flex: 1 1 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-icons a {
+            color: #F3EDE3;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .header-icons a:hover {
+            color: #ACAD99;
+        }
+
+        .burger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .burger span {
+            width: 25px;
+            height: 2px;
+            background-color: #F3EDE3;
+            transition: 0.3s;
+        }
+
+        #burger-toggle {
+            display: none;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            background: #2B2E35;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            padding: 30px;
+            border-top: 1px solid rgba(243, 237, 227, 0.1);
+            backdrop-filter: blur(10px);
+            gap: 20px;
+            align-items: flex-start;
+            box-shadow: -5px 10px 20px rgba(0,0,0,0.3);
+        }
+
+        #burger-toggle:checked ~ .nav-menu {
+            display: flex;
+        }
+
+        #burger-toggle:checked + .burger span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        #burger-toggle:checked + .burger span:nth-child(2) {
+            opacity: 0;
+        }
+        #burger-toggle:checked + .burger span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .nav-menu a {
+            color: #F3EDE3;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            transition: color 0.2s;
+            width: 100%;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(243, 237, 227, 0.05);
+        }
+
+        .nav-menu a:hover {
+            color: #ACAD99;
+        }
+
+        .header-info-mobile {
+            margin-top: 20px;
+            border-top: 1px solid rgba(243,237,227,0.1);
+            padding-top: 20px;
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Hero */
+        .page-hero {
+            margin: 40px 0 60px;
+            background: linear-gradient(120deg, #1a1d24, #2B2E35);
+            border-radius: 4px;
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='80' height='80'%3E%3Cpath d='M30,20 L40,20 L40,30 L30,30 Z M50,20 L60,20 L60,30 L50,30 Z M30,40 L40,40 L40,50 L30,50 Z M50,40 L60,40 L60,50 L50,50 Z' fill='none' stroke='%23ACAD99' stroke-width='1' opacity='0.1' /%3E%3C/svg%3E");
+            background-repeat: repeat;
+            pointer-events: none;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .page-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        /* 4 акцентных блока */
+        .accent-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0 60px;
+        }
+        .accent-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(243,237,227,0.08);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .accent-card:hover {
+            border-color: #ACAD99;
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-4px);
+        }
+        .accent-card i {
+            font-size: 3rem;
+            color: #ACAD99;
+            margin-bottom: 20px;
+        }
+        .accent-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .accent-card p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Полные правила */
+        .rules-list {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(243,237,227,0.08);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        .rules-list h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .rules-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .rules-list li {
+            margin: 15px 0;
+            padding-left: 28px;
+            position: relative;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+        .rules-list li:before {
+            content: "•";
+            color: #ACAD99;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 8px;
+            top: -2px;
+        }
+
+        /* Ссылка на полные правила */
+        .full-rules-link {
+            text-align: center;
+            margin: 30px 0 40px;
+        }
+        .full-rules-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #ACAD99;
+            color: #ACAD99;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+        .full-rules-link a:hover {
+            background: #ACAD99;
+            color: #2B2E35;
+        }
+        .full-rules-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Новости и акции */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .news-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(243,237,227,0.05);
+            padding: 25px;
+            transition: 0.2s;
+            border-radius: 8px;
+        }
+        .news-card:hover {
+            border-color: rgba(172,173,153,0.5);
+        }
+        .news-date {
+            font-size: 0.7rem;
+            color: #ACAD99;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .news-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .news-card p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .news-link {
+            color: #ACAD99;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            border-top: 1px solid rgba(243,237,227,0.1);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 1000px) {
+            .container { padding: 0 30px; }
+            .accent-grid { grid-template-columns: repeat(2, 1fr); }
+            .news-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 2.2rem; }
+            .page-hero { padding: 40px 20px; }
+        }
+        @media (max-width: 600px) {
+            .header-info-item span { display: none; }
+            .header-info { gap: 10px; }
+            .accent-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="header-left">
+                <div class="header-info">
+                    <div class="header-info-item"><i class="far fa-clock"></i><span>10:00 – 22:00</span></div>
+                    <div class="header-info-item"><i class="fas fa-parking"></i><span>Парковка 24/7</span></div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="logo-symbol">
+                    <div class="segment s1"></div>
+                    <div class="segment s2"></div>
+                    <div class="segment s3"></div>
+                    <div class="segment s4"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-icons">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="#"><i class="fas fa-map"></i></a>
+                </div>
+                <input type="checkbox" id="burger-toggle">
+                <label for="burger-toggle" class="burger">
+                    <span></span><span></span><span></span>
+                </label>
+                <nav class="nav-menu">
+                    <a href="#">Бутики</a>
+                    <a href="#">Рестораны</a>
+                    <a href="#">Кинотеатр</a>
+                    <a href="#">Консьерж</a>
+                    <a href="#">Лояльность</a>
+                    <a href="#">Карта этажей</a>
+                    <div class="header-info-mobile">
+                        <div><i class="far fa-clock"></i> 10:00–22:00</div>
+                        <div><i class="fas fa-parking"></i> Парковка 24/7</div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero -->
+        <div class="page-hero">
+            <h1>Правила пользования парковкой</h1>
+            <p>Удобная и безопасная парковка на территории МТРК «Времена Года». Ознакомьтесь с основными условиями.</p>
+        </div>
+
+        <!-- 4 акцентных блока -->
+        <div class="accent-grid">
+            <div class="accent-card">
+                <i class="far fa-clock"></i>
+                <h3>24/7</h3>
+                <p>Парковка работает круглосуточно, без выходных</p>
+            </div>
+            <div class="accent-card">
+                <i class="fas fa-ruble-sign"></i>
+                <h3>200 ₽ / час</h3>
+                <p>Стоимость парковки — 200 рублей за каждый час</p>
+            </div>
+            <div class="accent-card">
+                <i class="fas fa-crown"></i>
+                <h3>Карта лояльности</h3>
+                <p>Участники программы получают скидки и бесплатные часы парковки</p>
+            </div>
+            <div class="accent-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Оплата в приложении</h3>
+                <p>Скачайте приложение для быстрой оплаты и контроля времени</p>
+            </div>
+        </div>
+
+        <!-- Полные правила (основные выдержки) -->
+        <div class="rules-list">
+            <h3><i class="fas fa-parking"></i> Основные правила</h3>
+            <ul>
+                <li>Парковка предназначена для временной стоянки транспортных средств на платной основе.</li>
+                <li>Часы работы паркинга – круглосуточно. Услуги хранения и охраны не оказываются.</li>
+                <li>Въезд осуществляется только по парковочным картам или талонам. Сохраняйте их до выезда.</li>
+                <li>Стоимость утраченной/повреждённой парковочной карты — 5 000 рублей.</li>
+                <li>Оплата производится через автоматические терминалы на территории паркинга.</li>
+                <li>Запрещён въезд транспорта с газобаллонным оборудованием, каршеринга, а также неисправных авто.</li>
+                <li>Скорость движения по паркингу не должна превышать 5 км/ч.</li>
+                <li>Для инвалидов предусмотрены специальные места и льготы при предъявлении подтверждающих документов.</li>
+                <li>За повреждение шлагбаумов, терминалов и иного имущества взимается компенсация.</li>
+            </ul>
+        </div>
+
+        <!-- Ссылка на полные правила парковки (перед блоком новостей) -->
+        <div class="full-rules-link">
+            <a href="#" target="_blank"><i class="fas fa-file-alt"></i> Полные правила парковки (PDF)</a>
+        </div>
+
+        <!-- Новости и акции -->
+        <h2>Новости и акции</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-date"><i class="far fa-calendar-alt"></i> 15 апреля 2026</div>
+                <h3>Весенний фестиваль шопинга</h3>
+                <p>Скидки до 40% в бутиках-участниках. При покупке от 15 000₽ — подарок от центра.</p>
+                <a href="#" class="news-link">Узнать больше →</a>
+            </div>
+            <div class="news-card">
+                <div class="news-date"><i class="fas fa-parking"></i> Постоянно</div>
+                <h3>Бонусы за парковку</h3>
+                <p>Для участников программы лояльности — дополнительные баллы за каждую оплаченную парковку.</p>
+                <a href="#" class="news-link">Подробнее →</a>
+            </div>
+            <div class="news-card">
+                <div class="news-date"><i class="fas fa-mobile-alt"></i> Актуально</div>
+                <h3>Оплата через приложение</h3>
+                <p>Скачайте мобильное приложение «Времена Года» и оплачивайте парковку в один клик.</p>
+                <a href="#" class="news-link">Скачать приложение →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>© 2026 Времена Года. Премиальный шопинг-центр. Парковка 24/7.</p>
+    </footer>
+</body>
+</html>

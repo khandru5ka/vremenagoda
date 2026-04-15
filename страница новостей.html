@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости, акции и события | Времена Года</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #2B2E35;
+            color: #F3EDE3;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(243, 237, 227, 0.15);
+            padding-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        /* Header (как на главной) */
+        header {
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(243, 237, 227, 0.1);
+            position: sticky;
+            top: 0;
+            background-color: rgba(43, 46, 53, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-left {
+            flex: 1 1 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .header-info-item i {
+            color: #ACAD99;
+            font-size: 1.1rem;
+        }
+
+        .header-center {
+            flex: 0 0 auto;
+        }
+
+        .logo-symbol {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .segment {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #ACAD99;
+            opacity: 0.9;
+        }
+
+        .s1 { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .s2 { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .s3 { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .s4 { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        .header-right {
+            flex: 1 1 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-icons a {
+            color: #F3EDE3;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .header-icons a:hover {
+            color: #ACAD99;
+        }
+
+        .burger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .burger span {
+            width: 25px;
+            height: 2px;
+            background-color: #F3EDE3;
+            transition: 0.3s;
+        }
+
+        #burger-toggle {
+            display: none;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            background: #2B2E35;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            padding: 30px;
+            border-top: 1px solid rgba(243, 237, 227, 0.1);
+            backdrop-filter: blur(10px);
+            gap: 20px;
+            align-items: flex-start;
+            box-shadow: -5px 10px 20px rgba(0,0,0,0.3);
+        }
+
+        #burger-toggle:checked ~ .nav-menu {
+            display: flex;
+        }
+
+        #burger-toggle:checked + .burger span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        #burger-toggle:checked + .burger span:nth-child(2) {
+            opacity: 0;
+        }
+        #burger-toggle:checked + .burger span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .nav-menu a {
+            color: #F3EDE3;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            transition: color 0.2s;
+            width: 100%;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(243, 237, 227, 0.05);
+        }
+
+        .nav-menu a:hover {
+            color: #ACAD99;
+        }
+
+        .header-info-mobile {
+            margin-top: 20px;
+            border-top: 1px solid rgba(243,237,227,0.1);
+            padding-top: 20px;
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Hero */
+        .page-hero {
+            margin: 40px 0 40px;
+            text-align: center;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .page-hero p {
+            opacity: 0.7;
+        }
+
+        /* Фильтр */
+        .filter-bar {
+            margin: 30px 0 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            border-bottom: 1px solid rgba(243,237,227,0.2);
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: none;
+            border: none;
+            color: #ACAD99;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 8px 24px;
+            transition: 0.2s;
+            font-weight: 400;
+            border-radius: 30px;
+        }
+        .filter-btn.active {
+            color: #F3EDE3;
+            background: rgba(172,173,153,0.15);
+            border-bottom: 2px solid #ACAD99;
+        }
+        .filter-btn:hover {
+            color: #F3EDE3;
+        }
+
+        /* Сетка карточек */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .news-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(243,237,227,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-card:hover {
+            border-color: #ACAD99;
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-4px);
+        }
+        .card-banner {
+            height: 180px;
+            background-color: #1f2228;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='50' height='50'%3E%3Cpath d='M30,20 L40,20 L40,30 L30,30 Z M50,20 L60,20 L60,30 L50,30 Z M30,40 L40,40 L40,50 L30,50 Z M50,40 L60,40 L60,50 L50,50 Z' fill='none' stroke='%23ACAD99' stroke-width='1' opacity='0.2' /%3E%3C/svg%3E");
+            background-repeat: repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ACAD99;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        .card-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ACAD99;
+            border: 1px solid rgba(172,173,153,0.3);
+        }
+        .card-content {
+            padding: 20px;
+            flex: 1;
+        }
+        .card-date {
+            font-size: 0.75rem;
+            color: #ACAD99;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .card-excerpt {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .card-link {
+            color: #ACAD99;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-link:hover {
+            color: #F3EDE3;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #2B2E35;
+            border: 1px solid rgba(172,173,153,0.3);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #ACAD99;
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .modal-close:hover {
+            color: #F3EDE3;
+        }
+        .modal-banner {
+            height: 200px;
+            background: #1f2228;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #ACAD99;
+        }
+        .modal-body {
+            padding: 30px;
+        }
+        .modal-category {
+            display: inline-block;
+            background: rgba(172,173,153,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 15px;
+        }
+        .modal-body h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .modal-date {
+            color: #ACAD99;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+        .modal-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        footer {
+            border-top: 1px solid rgba(243,237,227,0.1);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 800px) {
+            .container { padding: 0 30px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .filter-bar { gap: 10px; }
+            .filter-btn { padding: 6px 16px; font-size: 0.85rem; }
+            .page-hero h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 600px) {
+            .header-info-item span { display: none; }
+            .header-info { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="header-left">
+                <div class="header-info">
+                    <div class="header-info-item"><i class="far fa-clock"></i><span>10:00 – 22:00</span></div>
+                    <div class="header-info-item"><i class="fas fa-parking"></i><span>Парковка 24/7</span></div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="logo-symbol">
+                    <div class="segment s1"></div>
+                    <div class="segment s2"></div>
+                    <div class="segment s3"></div>
+                    <div class="segment s4"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-icons">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="#"><i class="fas fa-map"></i></a>
+                </div>
+                <input type="checkbox" id="burger-toggle">
+                <label for="burger-toggle" class="burger">
+                    <span></span><span></span><span></span>
+                </label>
+                <nav class="nav-menu">
+                    <a href="#">Бутики</a>
+                    <a href="#">Рестораны</a>
+                    <a href="#">Кинотеатр</a>
+                    <a href="#">Консьерж</a>
+                    <a href="#">Лояльность</a>
+                    <a href="#">Карта этажей</a>
+                    <div class="header-info-mobile">
+                        <div><i class="far fa-clock"></i> 10:00–22:00</div>
+                        <div><i class="fas fa-parking"></i> Парковка 24/7</div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-hero">
+            <h1>Новости, акции и события</h1>
+            <p>Будьте в курсе главных событий торгового центра</p>
+        </div>
+
+        <!-- Фильтр -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="news">Новости</button>
+            <button class="filter-btn" data-filter="promo">Акции</button>
+            <button class="filter-btn" data-filter="event">События</button>
+        </div>
+
+        <!-- Сетка карточек -->
+        <div id="cardsGrid" class="cards-grid"></div>
+    </main>
+
+    <footer class="container">
+        <p>© 2026 Времена Года. Премиальный шопинг-центр.</p>
+    </footer>
+
+    <!-- Модальное окно для деталей -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close">&times;</div>
+            <div class="modal-banner" id="modalBanner"><i class="fas fa-newspaper"></i></div>
+            <div class="modal-body">
+                <div id="modalCategory" class="modal-category"></div>
+                <h3 id="modalTitle"></h3>
+                <div id="modalDate" class="modal-date"></div>
+                <div id="modalText" class="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные: новости, акции, события
+        const items = [
+            {
+                id: 1,
+                type: "news",
+                title: "Открытие нового бутика Gucci",
+                date: "15 апреля 2026",
+                excerpt: "В галерее 1 этажа открылся обновлённый бутик Gucci с эксклюзивной коллекцией весна-лето 2026.",
+                fullText: "Торжественное открытие состоялось 15 апреля. В новом пространстве представлены не только последние коллекции одежды и аксессуаров, но и лимитированная капсула, доступная только в нашем ТЦ. Приглашаем всех ценителей итальянского стиля посетить обновлённый бутик.",
+                icon: "fas fa-gem"
+            },
+            {
+                id: 2,
+                type: "promo",
+                title: "Скидка 20% на всё в Prada",
+                date: "20 апреля – 10 мая 2026",
+                excerpt: "В честь открытия летнего сезона скидка 20% на женские и мужские коллекции Prada.",
+                fullText: "Акция действует на все товары из новой коллекции. Не распространяется на товары прошлых сезонов. Скидка суммируется с программой лояльности. Подробности у консультантов бутика.",
+                icon: "fas fa-tags"
+            },
+            {
+                id: 3,
+                type: "event",
+                title: "Джазовый вечер в атриуме",
+                date: "25 апреля, 19:00",
+                excerpt: "Живая музыка, фуршет и атмосфера настоящего джазового клуба в центре Москвы.",
+                fullText: "Приглашаем вас на уникальный джазовый вечер с участием известных московских музыкантов. В программе: классика джаза, импровизации, авторские композиции. Вход свободный при предъявлении чека из любого магазина за текущий день.",
+                icon: "fas fa-music"
+            },
+            {
+                id: 4,
+                type: "news",
+                title: "Обновление карты этажей",
+                date: "10 апреля 2026",
+                excerpt: "Теперь навигация по ТЦ стала ещё удобнее: добавлены новые магазины и сервисы.",
+                fullText: "Мы обновили интерактивную карту этажей. Теперь вы можете быстро найти любой бутик, ресторан или сервис, а также проложить оптимальный маршрут. Карта доступна в мобильном приложении и на информационных стойках.",
+                icon: "fas fa-map"
+            },
+            {
+                id: 5,
+                type: "promo",
+                title: "Бесплатная парковка 3 часа",
+                date: "Постоянно",
+                excerpt: "При покупке от 5000 ₽ — 3 часа парковки бесплатно. Акция для всех посетителей.",
+                fullText: "Предъявите чек из любого магазина ТЦ на сумму от 5000 рублей на выезде с парковки. 3 часа бесплатно, далее по стандартному тарифу 200 ₽/час. Акция не суммируется с другими предложениями.",
+                icon: "fas fa-parking"
+            },
+            {
+                id: 6,
+                type: "event",
+                title: "Мастер-класс по флористике",
+                date: "2 мая, 15:00",
+                excerpt: "Создайте весеннюю композицию вместе с флористами «Необычные Букеты».",
+                fullText: "Бесплатный мастер-класс для детей и взрослых. Все материалы предоставляются. Количество мест ограничено, необходима предварительная регистрация в приложении или на стойке информации.",
+                icon: "fas fa-seedling"
+            },
+            {
+                id: 7,
+                type: "promo",
+                title: "Кешбэк 10% на услуги сервисов",
+                date: "1–31 мая",
+                excerpt: "При оплате услуг в салонах красоты и автосервисах — кешбэк баллами лояльности.",
+                fullText: "Услуги партнёров: Aldo Coppola, GT.DETAILING, Legacy Craft Service. Кешбэк начисляется на карту лояльности в течение 5 рабочих дней.",
+                icon: "fas fa-percent"
+            },
+            {
+                id: 8,
+                type: "event",
+                title: "Фотосессия с профессиональным фотографом",
+                date: "9–10 мая, 12:00–18:00",
+                excerpt: "В рамках фестиваля моды — бесплатные фотосессии в стильных интерьерах ТЦ.",
+                fullText: "Приходите в своих лучших образах, профессиональный фотограф сделает серию снимков. Результат вы получите на e-mail в течение недели. Предварительная запись не требуется.",
+                icon: "fas fa-camera"
+            }
+        ];
+
+        // Элементы DOM
+        const gridContainer = document.getElementById('cardsGrid');
+        const modal = document.getElementById('modal');
+        const modalClose = document.querySelector('.modal-close');
+        const modalBanner = document.getElementById('modalBanner');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDate = document.getElementById('modalDate');
+        const modalText = document.getElementById('modalText');
+
+        // Функция рендера карточек
+        function renderCards(filter) {
+            let filtered = items;
+            if (filter !== 'all') {
+                filtered = items.filter(item => item.type === filter);
+            }
+            if (filtered.length === 0) {
+                gridContainer.innerHTML = '<div style="text-align:center; padding:60px; opacity:0.6;">Нет материалов в этой категории</div>';
+                return;
+            }
+            gridContainer.innerHTML = filtered.map(item => {
+                let categoryText = '';
+                let categoryClass = '';
+                if (item.type === 'news') { categoryText = 'Новость'; categoryClass = 'news'; }
+                else if (item.type === 'promo') { categoryText = 'Акция'; categoryClass = 'promo'; }
+                else { categoryText = 'Событие'; categoryClass = 'event'; }
+                return `
+                    <div class="news-card" data-id="${item.id}">
+                        <div class="card-banner">
+                            <i class="${item.icon}"></i>
+                            <div class="card-category">${categoryText}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
+                            <h3>${item.title}</h3>
+                            <div class="card-excerpt">${item.excerpt}</div>
+                            <div class="card-link">Подробнее <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Добавляем обработчики на карточки
+            document.querySelectorAll('.news-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const id = parseInt(card.getAttribute('data-id'));
+                    const item = items.find(i => i.id === id);
+                    if (item) openModal(item);
+                });
+            });
+        }
+
+        // Открыть модальное окно
+        function openModal(item) {
+            let categoryText = '';
+            if (item.type === 'news') categoryText = 'Новость';
+            else if (item.type === 'promo') categoryText = 'Акция';
+            else categoryText = 'Событие';
+            modalBanner.innerHTML = `<i class="${item.icon}" style="font-size: 3rem;"></i>`;
+            modalCategory.textContent = categoryText;
+            modalTitle.textContent = item.title;
+            modalDate.innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+            modalText.textContent = item.fullText;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Закрыть модальное окно
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Фильтрация
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                renderCards(filter);
+            });
+        });
+
+        // Инициализация
+        renderCards('all');
+    </script>
+</body>
+</html>
