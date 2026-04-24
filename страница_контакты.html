@@ -271,32 +271,55 @@
             opacity: 0.5;
         }
 
-        /* Как добраться */
-        .transport-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+        /* Одна кнопка Яндекс Навигатор */
+        .nav-buttons-block {
             margin: 40px 0;
-        }
-        .transport-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(243,237,227,0.05);
-            border-radius: 8px;
-            padding: 25px;
             text-align: center;
         }
-        .transport-card i {
-            font-size: 2.5rem;
-            color: #ACAD99;
-            margin-bottom: 15px;
+        .nav-buttons-block h2 {
+            display: inline-block;
+            margin-bottom: 1.5rem;
         }
-        .transport-card h4 {
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #ACAD99;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #F3EDE3;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-btn i {
             font-size: 1.3rem;
-            margin-bottom: 10px;
+            color: #ACAD99;
         }
-        .transport-card p {
-            opacity: 0.7;
-            font-size: 0.9rem;
+        .nav-btn:hover {
+            background: #ACAD99;
+            color: #2B2E35;
+        }
+        .nav-btn:hover i {
+            color: #2B2E35;
+        }
+
+        /* Парковка */
+        .parking-block {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(243,237,227,0.08);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .parking-block h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         /* Блок полезных ссылок */
@@ -324,6 +347,20 @@
             color: #F3EDE3;
         }
 
+        /* Мобильное приложение */
+        .app-block {
+            background: linear-gradient(145deg, #1f2228, #2B2E35);
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 60px 0;
+            border: 1px solid rgba(172,173,153,0.2);
+            border-radius: 4px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
         footer {
             border-top: 1px solid rgba(243,237,227,0.1);
             padding: 40px 0;
@@ -336,7 +373,6 @@
         @media (max-width: 1000px) {
             .container { padding: 0 30px; }
             .info-grid { grid-template-columns: 1fr; }
-            .transport-grid { grid-template-columns: 1fr; }
             .plan-hero h1 { font-size: 2.2rem; }
             .plan-hero { padding: 40px 20px; }
         }
@@ -421,28 +457,17 @@
             </div>
         </div>
 
-        <!-- Как добраться -->
-        <h2>Как добраться</h2>
-        <div class="transport-grid">
-            <div class="transport-card">
-                <i class="fas fa-car"></i>
-                <h4>На автомобиле</h4>
-                <p>Съезд с Кутузовского проспекта, собственная парковка на 1500 мест. Въезд с Минской улицы.</p>
-            </div>
-            <div class="transport-card">
-                <i class="fas fa-subway"></i>
-                <h4>Метро / МЦК</h4>
-                <p>Станция «Кутузовская» (Филевская линия) — выход к ТЦ. МЦК «Кутузовская» — 3 минуты пешком.</p>
-            </div>
-            <div class="transport-card">
-                <i class="fas fa-bus"></i>
-                <h4>Наземный транспорт</h4>
-                <p>Автобусы: 91, 116, 157, 205, 297. Остановка «Кутузовский проспект, 48».</p>
-            </div>
+        <!-- Одна кнопка Яндекс.Навигатор -->
+        <div class="nav-buttons-block">
+            <h2>Проложить маршрут</h2>
+            <a href="https://nav.yandex.ru/?utm_source=redirect&from=main&rtext=~55.740021,37.505733&rwhat=geo" class="nav-btn" target="_blank">
+                <i class="fab fa-yandex"></i> Яндекс.Навигатор
+            </a>
+            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.6;">Нажмите на кнопку, чтобы проложить маршрут до ТЦ «Времена Года»</p>
         </div>
 
         <!-- Парковка -->
-        <div class="info-card" style="margin: 40px 0;">
+        <div class="parking-block">
             <h3><i class="fas fa-parking"></i> Парковка</h3>
             <p>Собственный многоуровневый паркинг на 1500 машиномест. Первые 3 часа — бесплатно при предъявлении чека из любого магазина. Далее — 100 ₽/час. Для участников программы лояльности — дополнительные бонусы.</p>
             <div class="contact-line" style="margin-top: 15px;"><i class="fas fa-wheelchair"></i> Места для инвалидов — 30 мест, на первом этаже паркинга.</div>
@@ -457,8 +482,8 @@
             <a href="#"><i class="fas fa-wheelchair"></i> Доступная среда</a>
         </div>
 
-        <!-- Мобильное приложение (как на других страницах) -->
-        <div class="app-block" style="background: linear-gradient(145deg, #1f2228, #2B2E35); padding: 50px; display: flex; justify-content: space-between; align-items: center; margin: 60px 0; border: 1px solid rgba(172,173,153,0.2); border-radius: 4px; flex-wrap: wrap; gap: 20px;">
+        <!-- Мобильное приложение -->
+        <div class="app-block">
             <div class="app-text">
                 <h3>Мобильное приложение</h3>
                 <p>Планируйте визит, бронируйте столики, получайте акции</p>
