@@ -223,39 +223,7 @@
             opacity: 0.7;
         }
 
-        /* Фильтр */
-        .filter-bar {
-            margin: 30px 0 40px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            border-bottom: 1px solid rgba(243,237,227,0.2);
-            padding-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            background: none;
-            border: none;
-            color: #ACAD99;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            padding: 8px 24px;
-            transition: 0.2s;
-            font-weight: 400;
-            border-radius: 30px;
-        }
-        .filter-btn.active {
-            color: #F3EDE3;
-            background: rgba(172,173,153,0.15);
-            border-bottom: 2px solid #ACAD99;
-        }
-        .filter-btn:hover {
-            color: #F3EDE3;
-        }
-
-        /* Сетка карточек */
+        /* Сетка карточек (без фильтра) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -429,8 +397,6 @@
         @media (max-width: 800px) {
             .container { padding: 0 30px; }
             .cards-grid { grid-template-columns: 1fr; }
-            .filter-bar { gap: 10px; }
-            .filter-btn { padding: 6px 16px; font-size: 0.85rem; }
             .page-hero h1 { font-size: 2.2rem; }
         }
         @media (max-width: 600px) {
@@ -487,15 +453,7 @@
             <p>Будьте в курсе главных событий торгового центра</p>
         </div>
 
-        <!-- Фильтр -->
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">Все</button>
-            <button class="filter-btn" data-filter="news">Новости</button>
-            <button class="filter-btn" data-filter="promo">Акции</button>
-            <button class="filter-btn" data-filter="event">События</button>
-        </div>
-
-        <!-- Сетка карточек -->
+        <!-- Без фильтрации — сразу сетка карточек -->
         <div id="cardsGrid" class="cards-grid"></div>
     </main>
 
@@ -604,22 +562,17 @@
         const modalDate = document.getElementById('modalDate');
         const modalText = document.getElementById('modalText');
 
-        // Функция рендера карточек
-        function renderCards(filter) {
-            let filtered = items;
-            if (filter !== 'all') {
-                filtered = items.filter(item => item.type === filter);
-            }
-            if (filtered.length === 0) {
-                gridContainer.innerHTML = '<div style="text-align:center; padding:60px; opacity:0.6;">Нет материалов в этой категории</div>';
+        // Функция рендера всех карточек (без фильтра)
+        function renderAllCards() {
+            if (items.length === 0) {
+                gridContainer.innerHTML = '<div style="text-align:center; padding:60px; opacity:0.6;">Нет материалов</div>';
                 return;
             }
-            gridContainer.innerHTML = filtered.map(item => {
+            gridContainer.innerHTML = items.map(item => {
                 let categoryText = '';
-                let categoryClass = '';
-                if (item.type === 'news') { categoryText = 'Новость'; categoryClass = 'news'; }
-                else if (item.type === 'promo') { categoryText = 'Акция'; categoryClass = 'promo'; }
-                else { categoryText = 'Событие'; categoryClass = 'event'; }
+                if (item.type === 'news') categoryText = 'Новость';
+                else if (item.type === 'promo') categoryText = 'Акция';
+                else categoryText = 'Событие';
                 return `
                     <div class="news-card" data-id="${item.id}">
                         <div class="card-banner">
@@ -672,19 +625,8 @@
             if (e.target === modal) closeModal();
         });
 
-        // Фильтрация
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.getAttribute('data-filter');
-                renderCards(filter);
-            });
-        });
-
         // Инициализация
-        renderCards('all');
+        renderAllCards();
     </script>
 </body>
 </html>
