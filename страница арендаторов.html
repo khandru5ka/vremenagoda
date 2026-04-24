@@ -42,7 +42,6 @@
             display: inline-block;
         }
 
-        /* Header */
         header {
             padding: 25px 0;
             border-bottom: 1px solid rgba(243, 237, 227, 0.1);
@@ -185,7 +184,6 @@
             font-size: 0.8rem;
         }
 
-        /* Фильтр */
         .filter-bar {
             margin: 50px 0 30px;
             display: flex;
@@ -213,7 +211,6 @@
             color: #F3EDE3;
         }
 
-        /* Сетка карточек */
         .tenants-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -294,35 +291,40 @@
             color: #2B2E35;
         }
 
-        /* Плашка Tax Free */
-        .taxfree-badge {
-            background: #C7A86B;
-            color: #2B2E35;
+        /* Общий стиль для бейджей */
+        .info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             font-size: 0.7rem;
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
             cursor: help;
             transition: 0.2s;
             letter-spacing: 0.5px;
         }
-        .taxfree-badge i {
-            font-size: 0.7rem;
+        .taxfree-badge {
+            background: #C7A86B;
+            color: #2B2E35;
         }
         .taxfree-badge:hover {
             background: #D4B87A;
             transform: scale(1.02);
         }
-
-        /* Контейнер для тултипа (модальное окно при наведении) */
-        .taxfree-wrapper {
+        .loyalty-badge {
+            background: #ACAD99;
+            color: #2B2E35;
+        }
+        .loyalty-badge:hover {
+            background: #C0C1A8;
+            transform: scale(1.02);
+        }
+        .badge-wrapper {
             position: relative;
             display: inline-block;
         }
-        .taxfree-tooltip {
+        .badge-tooltip {
             position: absolute;
             bottom: 130%;
             left: 50%;
@@ -346,11 +348,10 @@
             text-align: left;
             line-height: 1.4;
         }
-        .taxfree-wrapper:hover .taxfree-tooltip {
+        .badge-wrapper:hover .badge-tooltip {
             opacity: 1;
         }
-        /* Стрелочка */
-        .taxfree-tooltip::after {
+        .badge-tooltip::after {
             content: '';
             position: absolute;
             top: 100%;
@@ -361,7 +362,12 @@
             border-color: #1f2228 transparent transparent transparent;
         }
 
-        /* новости */
+        .badges-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
         .news-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -414,7 +420,7 @@
             .tenants-grid { grid-template-columns: 1fr; }
             .news-grid { grid-template-columns: 1fr; }
             .filter-bar { justify-content: center; }
-            .taxfree-tooltip { 
+            .badge-tooltip { 
                 white-space: normal;
                 width: 220px;
                 left: 0;
@@ -508,22 +514,23 @@
     </footer>
 
     <script>
+        // Данные арендаторов (добавлены условия лояльности)
         const tenants = [
-            { name: "Gucci", category: "boutique", desc: "Итальянская мода, аксессуары, обувь", hours: "10:00 – 22:00", bannerIcon: "fas fa-gem" },
-            { name: "Prada", category: "boutique", desc: "Эксклюзивные коллекции и сумки", hours: "10:00 – 22:00", bannerIcon: "fas fa-handbag" },
-            { name: "Louis Vuitton", category: "boutique", desc: "Кожаные изделия, одежда, часы", hours: "10:00 – 22:00", bannerIcon: "fas fa-suitcase" },
-            { name: "Dior", category: "boutique", desc: "Парфюмерия, женская одежда", hours: "10:00 – 22:00", bannerIcon: "fas fa-perfume" },
-            { name: "Bluefin Boutique", category: "restaurant", desc: "Ресторан и рыбный бутик", hours: "11:00 – 23:00", bannerIcon: "fas fa-utensils" },
-            { name: "Gauchito", category: "restaurant", desc: "Аргентинский гриль, стейки", hours: "12:00 – 00:00", bannerIcon: "fas fa-fire" },
-            { name: "Valiko", category: "restaurant", desc: "Грузинская кухня, хинкали", hours: "12:00 – 23:00", bannerIcon: "fas fa-wine-bottle" },
-            { name: "Brigitte cafe", category: "restaurant", desc: "Французская выпечка, завтраки", hours: "09:00 – 21:00", bannerIcon: "fas fa-mug-hot" },
-            { name: "ImperiuM Motors", category: "service", desc: "Премиальные авто, тест-драйв", hours: "10:00 – 22:00", bannerIcon: "fas fa-car" },
-            { name: "Legacy Craft Service", category: "service", desc: "Ремонт техники, настройка", hours: "10:00 – 20:00", bannerIcon: "fas fa-tools" },
-            { name: "GT. DETAILING", category: "service", desc: "Детейлинг, химчистка авто", hours: "09:00 – 21:00", bannerIcon: "fas fa-spray-can" },
-            { name: "Aldo Coppola", category: "service", desc: "Салон красоты, уход", hours: "10:00 – 21:00", bannerIcon: "fas fa-cut" }
+            { name: "Gucci", category: "boutique", desc: "Итальянская мода, аксессуары, обувь", hours: "10:00 – 22:00", bannerIcon: "fas fa-gem", loyaltyText: "Накопление баллов: 2% от суммы покупки. Скидка по карте лояльности 5% на первую покупку. Дополнительный бонус в день рождения." },
+            { name: "Prada", category: "boutique", desc: "Эксклюзивные коллекции и сумки", hours: "10:00 – 22:00", bannerIcon: "fas fa-handbag", loyaltyText: "Участники программы получают 3% кешбэка баллами. При достижении уровня Premium — персональный стилист." },
+            { name: "Louis Vuitton", category: "boutique", desc: "Кожаные изделия, одежда, часы", hours: "10:00 – 22:00", bannerIcon: "fas fa-suitcase", loyaltyText: "Двойные баллы за каждую 1000 ₽ в рамках акции «Летний сезон». Для постоянных клиентов — подарки." },
+            { name: "Dior", category: "boutique", desc: "Парфюмерия, женская одежда", hours: "10:00 – 22:00", bannerIcon: "fas fa-perfume", loyaltyText: "5% начисление баллов, доступ к закрытым распродажам для участников клуба." },
+            { name: "Bluefin Boutique", category: "restaurant", desc: "Ресторан и рыбный бутик", hours: "11:00 – 23:00", bannerIcon: "fas fa-utensils", loyaltyText: "Скидка 10% по карте лояльности на всё меню. Накопление баллов за каждые 500 ₽." },
+            { name: "Gauchito", category: "restaurant", desc: "Аргентинский гриль, стейки", hours: "12:00 – 00:00", bannerIcon: "fas fa-fire", loyaltyText: "При предъявлении карты — бесплатный десерт к основному блюду. Баллы начисляются на счёт." },
+            { name: "Valiko", category: "restaurant", desc: "Грузинская кухня, хинкали", hours: "12:00 – 23:00", bannerIcon: "fas fa-wine-bottle", loyaltyText: "Накопление баллов: 1 балл = 1% скидки на следующий визит. Двойные баллы по вторникам." },
+            { name: "Brigitte cafe", category: "restaurant", desc: "Французская выпечка, завтраки", hours: "09:00 – 21:00", bannerIcon: "fas fa-mug-hot", loyaltyText: "Каждое 6-е посещение в подарок — круассан и кофе. Баллы за покупки от 500 ₽." },
+            { name: "ImperiuM Motors", category: "service", desc: "Премиальные авто, тест-драйв", hours: "10:00 – 22:00", bannerIcon: "fas fa-car", loyaltyText: "Участники получают бесплатный шиномонтаж раз в сезон. Бонусные баллы за техобслуживание." },
+            { name: "Legacy Craft Service", category: "service", desc: "Ремонт техники, настройка", hours: "10:00 – 20:00", bannerIcon: "fas fa-tools", loyaltyText: "Скидка 7% на все услуги по предъявлении карты. Накопление баллов за каждые 1000 ₽." },
+            { name: "GT. DETAILING", category: "service", desc: "Детейлинг, химчистка авто", hours: "09:00 – 21:00", bannerIcon: "fas fa-spray-can", loyaltyText: "Накопление баллов: 5% от чека. При достижении 500 баллов — бесплатная полировка фар." },
+            { name: "Aldo Coppola", category: "service", desc: "Салон красоты, уход", hours: "10:00 – 21:00", bannerIcon: "fas fa-cut", loyaltyText: "Каждое 10-е посещение — скидка 30% на любую услугу. Баллы начисляются автоматически." }
         ];
 
-        // Текст условий Tax Free
+        // Текст условий Tax Free (одинаков для всех)
         const taxFreeText = "Tax Free для иностранных граждан. Возврат НДС (до 20%) при вывозе товаров за пределы ЕАЭС. Минимальная сумма покупки — 10 000 ₽ в одном чеке. Оформление на стойке информации 1 этажа. Необходим паспорт и заполненная декларация.";
 
         function renderCards(category) {
@@ -536,14 +543,24 @@
                 card.innerHTML = `
                     <div class="card-banner"><i class="${t.bannerIcon}" style="font-size: 3rem;"></i></div>
                     <div class="card-content">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
                             <h3>${t.name}</h3>
-                            <div class="taxfree-wrapper">
-                                <div class="taxfree-badge">
-                                    <i class="fas fa-receipt"></i> Tax Free
+                            <div class="badges-group">
+                                <div class="badge-wrapper taxfree-wrapper">
+                                    <div class="info-badge taxfree-badge">
+                                        <i class="fas fa-receipt"></i> Tax Free
+                                    </div>
+                                    <div class="badge-tooltip taxfree-tooltip">
+                                        ${taxFreeText}
+                                    </div>
                                 </div>
-                                <div class="taxfree-tooltip">
-                                    ${taxFreeText}
+                                <div class="badge-wrapper loyalty-wrapper">
+                                    <div class="info-badge loyalty-badge">
+                                        <i class="fas fa-crown"></i> Лояльность
+                                    </div>
+                                    <div class="badge-tooltip loyalty-tooltip">
+                                        ${t.loyaltyText}
+                                    </div>
                                 </div>
                             </div>
                         </div>
